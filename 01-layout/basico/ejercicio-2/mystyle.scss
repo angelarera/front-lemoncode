@@ -1,0 +1,74 @@
+@use "themes/blue" as theme;
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 75px;
+  box-sizing: border-box;
+}
+
+.colours {
+  display: flex;
+  gap: 25px;
+
+  & .text {
+    font-family: theme.$primary-font;
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  & .colour {
+    width: 150px;
+    height: 150px;
+    border-radius: theme.$border-radius;
+  }
+
+  & .box.--base .colour {
+    background-color: theme.$base;
+  }
+
+  & .box.--important .colour {
+    background-color: theme.$important;
+  }
+
+  & .box.--warning .colour {
+    background-color: theme.$warning;
+  }
+}
+
+.fonts {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+
+  & .primary {
+    font-family: theme.$primary-font;
+    font-size: 2rem;
+  }
+
+  & .secondary {
+    font-family: theme.$secondary-font;
+    font-size: 1.75rem;
+  }
+}
+
+.effects {
+  width: 300px;
+  height: 150px;
+  border-radius: theme.$border-radius;
+  box-shadow: theme.$box-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & p {
+    font-family: theme.$secondary-font;
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,23 @@
+$pink: #ff8fbe;
+$green: #9fff03;
+$blue: #67c0ff;
+$black: #2d3748;
+$white: #ffffff;
+
+@mixin generate-shades($base-color) {
+  @for $i from 1 through 4 {
+    .box.base-color {
+      background-color: $base-color;
+      color: $black;
+    }
+
+    .box.darken-#{$i} {
+      background-color: darken($base-color, $i * 5%);
+      color: $white;
+    }
+
+    .box.lighten-#{$i} {
+      background-color: lighten($base-color, $i * 5%);
+    }
+  }
+}

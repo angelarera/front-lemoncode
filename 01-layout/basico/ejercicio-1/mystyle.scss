@@ -1,0 +1,36 @@
+@use "base" as *;
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+[class^="container-"] {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.container-1 {
+  @include generate-shades($pink);
+}
+
+.container-2 {
+  @include generate-shades($green);
+}
+
+.container-3 {
+  @include generate-shades($blue);
+}
+
+.box {
+  padding: 1rem;
+  color: $black;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
