@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+:root {
+  --blue: #002c3d;
+  --black: #00100b;
+  --gray: #d8e7ed;
+  --gradient: linear-gradient(121deg, #7eaa00 37.66%, #ffdb00 93.75%);
+  --padding-x: 1rem;
+  --border-radius: 4px;
+}
+
+body {
+  min-width: 100%;
+  min-height: 100dvh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.toolbar,
+.menu-title {
+  display: none;
+}
+
+.page-title {
+  padding: 1.5rem var(--padding-x);
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  background: var(--gradient);
+}
+
+.page-container nav {
+  position: sticky;
+  top: 0;
+  background-color: var(--black);
+}
+
+.menu-container ul {
+  padding: 0.5rem var(--padding-x);
+  display: flex;
+  justify-content: space-between;
+
+  li {
+    padding: 0.5rem;
+    background-color: var(--gray);
+    border-radius: var(--border-radius);
+  }
+}
+
+main {
+  padding: 1rem var(--padding-x);
+}
+
+.card.item {
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 1rem;
+    border-radius: 100%;
+  }
+
+  .member-name {
+    color: var(--blue);
+  }
+}
+
+footer {
+  padding: 0.5rem var(--padding-x);
+  background-color: var(--gray);
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .toolbar {
+    padding: 1rem var(--padding-x);
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+      padding: 0.5rem;
+      border: 2px solid var(--blue);
+      border-radius: var(--border-radius);
+    }
+  }
+
+  .page-container {
+    display: flex;
+
+    main {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .menu-title {
+    padding: 1rem var(--padding-x);
+    display: block;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .menu-container {
+    position: sticky;
+    top: 0;
+  }
+
+  .menu-container ul {
+    padding: 0;
+    width: 200px;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    li {
+      padding: 0.5rem var(--padding-x);
+      border-radius: 0;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .card.item {
+    width: 200px;
+    flex-direction: column;
+
+    img {
+      width: 100px;
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .member-name {
+      text-align: center;
+    }
+  }
+}
