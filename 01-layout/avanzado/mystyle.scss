@@ -1,0 +1,139 @@
+@use "base" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-family: "Jost", sans-serif;
+  background-color: $black;
+  color: $white;
+}
+
+header {
+  padding: 1.5rem 0;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: $black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.platform-title,
+.top .top-item:nth-child(n + 4) {
+  display: none;
+}
+
+.header-buttons {
+  display: flex;
+
+  div {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  div:hover {
+    color: $black;
+    background-color: $white;
+  }
+}
+
+.section-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+#top-text::before {
+  content: "3";
+  font-weight: bold;
+}
+
+.top {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($minwidth-top-card, 1fr));
+}
+
+.first,
+.second {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, $minwidth-standard-card), 1fr)
+  );
+  gap: $gap;
+  container-type: inline-size;
+}
+
+.top-item,
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  img {
+    min-width: 100%;
+  }
+}
+
+.item:hover {
+  scale: 1.1;
+  z-index: 10;
+}
+
+/////////// CONTAINER QUERIES ///////////
+/* When the container's width allows four cards per row, make all cards from the 5th onward span two columns so they occupy the full width of the next row */
+@container (min-width: #{$first-container-breakpoint}) {
+  .first .item:nth-child(n + 5),
+  .second .item:nth-child(n + 5) {
+    grid-column: span 2;
+  }
+}
+
+/* When the container is wide enough to fit all 6 cards in a single row, reset the grid so each card occupies the same amount of space again */
+@container (min-width: #{$second-container-breakpoint}) {
+  .first,
+  .second {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax($minwidth-standard-card, 1fr)
+    );
+
+    .item:nth-child(n + 5) {
+      grid-column: auto;
+    }
+  }
+}
+
+/////////// MEDIA QUERIES ///////////
+@media screen and (min-width: 1280px) {
+  .header-logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .platform-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-left: 1rem;
+    display: block;
+  }
+
+  .top .top-item:nth-child(n + 4) {
+    display: flex;
+  }
+
+  #top-text::before {
+    content: "5";
+  }
+}

@@ -1,0 +1,8 @@
+$black: #141414;
+$white: #faf7ff;
+$minwidth-top-card: 225px;
+$minwidth-standard-card: 250px;
+$gap: 0.25rem;
+
+$first-container-breakpoint: calc($minwidth-standard-card * 4 + $gap * 3);
+$second-container-breakpoint: calc($minwidth-standard-card * 6 + $gap * 5);
