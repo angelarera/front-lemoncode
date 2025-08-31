@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+$shadow-one: 4px 4px 0px #07bccc;
+$shadow-two: 8px 8px 0px #e601c0;
+$shadow-three: 12px 12px 0px #f40468;
+
+.title {
+  color: white;
+  font-family: "Pacifico", cursive;
+  font-size: max(5rem, 10dvw);
+  line-height: 115%;
+  text-align: center;
+  text-shadow: $shadow-one, $shadow-two, $shadow-three;
+}
