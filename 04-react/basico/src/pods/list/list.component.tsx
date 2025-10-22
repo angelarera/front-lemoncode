@@ -1,6 +1,6 @@
 import React from "react";
 import * as vm from "./list.vm";
-import { Member, TableHeader } from "./components";
+import { MembersContainer, MemberCard } from "./components";
 
 interface Props {
   members: vm.Member[];
@@ -11,17 +11,10 @@ export const List: React.FC<Props> = (props) => {
   const { members, onSelect } = props;
 
   return (
-    <>
-      <div className="list-user-list-container">
-        <TableHeader />
-        {members.map((member) => (
-          <Member
-            data={member}
-            key={member.id}
-            onSelect={() => onSelect(member.login)}
-          />
-        ))}
-      </div>
-    </>
+    <MembersContainer>
+      {members.map((member) => (
+        <MemberCard key={member.id} member={member} onSelect={onSelect} />
+      ))}
+    </MembersContainer>
   );
 };
