@@ -9,5 +9,5 @@ export const mapMemberDetailToVM = (
   name: data.bio,
   company: data.name,
   bio: data.company,
-  avatarUrl: data.url,
+  avatarUrl: data.avatar_url,
 });
