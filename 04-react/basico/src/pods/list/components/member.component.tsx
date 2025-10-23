@@ -11,10 +11,15 @@ import { Member } from "../list.vm";
 
 interface Props {
   member: Member;
-  onSelect: (login: string) => void;
+  onSelect: (login: string, org?: string) => void;
+  currentOrg?: string;
 }
 
-export const MemberCard: React.FC<Props> = ({ member, onSelect }) => {
+export const MemberCard: React.FC<Props> = ({
+  member,
+  onSelect,
+  currentOrg,
+}) => {
   return (
     <Card
       sx={{
@@ -53,7 +58,7 @@ export const MemberCard: React.FC<Props> = ({ member, onSelect }) => {
         <Button
           size="small"
           variant="outlined"
-          onClick={() => onSelect(member.login)}
+          onClick={() => onSelect(member.login, currentOrg)}
           fullWidth
           sx={{
             fontSize: "0.8rem",
