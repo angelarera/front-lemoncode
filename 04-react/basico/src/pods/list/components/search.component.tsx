@@ -1,17 +1,14 @@
 import React from "react";
 import { TextField, Button, Box } from "@mui/material";
+import { ListContext } from "../list.context";
 
 interface Props {
-  organization: string;
-  onOrganizationChange: (org: string) => void;
   onSearch: () => void;
 }
 
-export const Search: React.FC<Props> = ({
-  organization,
-  onOrganizationChange,
-  onSearch,
-}) => {
+export const Search: React.FC<Props> = ({ onSearch }) => {
+  const { organization, setOrganization } = React.useContext(ListContext);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch();
@@ -26,7 +23,7 @@ export const Search: React.FC<Props> = ({
       <TextField
         label="Filtrar por organización"
         value={organization}
-        onChange={(e) => onOrganizationChange(e.target.value)}
+        onChange={(e) => setOrganization(e.target.value)}
         placeholder="lemoncode"
         size="small"
         sx={{ mr: 2, width: 200 }}

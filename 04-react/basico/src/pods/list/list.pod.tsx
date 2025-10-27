@@ -1,10 +1,10 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { Member } from "./list.vm";
 import { List } from "./list.component";
 import { getMembers } from "./api/api";
 import { mapMembersToVM } from "./list.mapper";
 import { Search } from "./components";
+import { ListContext } from "./list.context";
 
 interface Props {
   onSelect: (login: string, org?: string) => void;
@@ -12,11 +12,8 @@ interface Props {
 
 export const ListPod: React.FC<Props> = (props) => {
   const { onSelect } = props;
-  const location = useLocation();
-  const initialOrg = ((location.state as any)?.org as string) ?? "lemoncode";
-
+  const { organization } = React.useContext(ListContext);
   const [members, setMembers] = React.useState<Member[]>([]);
-  const [organization, setOrganization] = React.useState(initialOrg);
 
   React.useEffect(() => {
     getMembers(organization).then(mapMembersToVM).then(setMembers);
@@ -28,11 +25,7 @@ export const ListPod: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Search
-        organization={organization}
-        onOrganizationChange={setOrganization}
-        onSearch={handleSearch}
-      />
+      <Search onSearch={handleSearch} />
       <List members={members} onSelect={onSelect} currentOrg={organization} />
     </>
   );
