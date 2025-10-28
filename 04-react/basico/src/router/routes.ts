@@ -2,19 +2,28 @@ import { generatePath } from "react-router-dom";
 
 interface AppRoutes {
   root: string;
-  detail: string;
+  memberDetail: string;
+  rickAndMorty: string;
+  characterDetail: string;
 }
 
-interface LinkRoutes extends Omit<AppRoutes, "detail"> {
-  detail: (login: string) => string;
+interface LinkRoutes
+  extends Omit<AppRoutes, "memberDetail" | "characterDetail"> {
+  memberDetail: (login: string) => string;
+  characterDetail: (id: string) => string;
 }
 
 export const appRoutes: AppRoutes = {
   root: "/",
-  detail: "/detail/:login",
+  memberDetail: "/detail/:login",
+  rickAndMorty: "/rick-and-morty",
+  characterDetail: "/rick-and-morty/character/:id",
 };
 
 export const routes: LinkRoutes = {
   ...appRoutes,
-  detail: (login: string) => generatePath(appRoutes.detail, { login }),
+  memberDetail: (login: string) =>
+    generatePath(appRoutes.memberDetail, { login }),
+  characterDetail: (id: string) =>
+    generatePath(appRoutes.characterDetail, { id }),
 };

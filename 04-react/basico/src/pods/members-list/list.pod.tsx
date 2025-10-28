@@ -3,7 +3,7 @@ import { Member } from "./list.vm";
 import { List } from "./list.component";
 import { getMembers } from "./api/api";
 import { mapMembersToVM } from "./list.mapper";
-import { Search } from "./components";
+import { NavigationButton, Search } from "./components";
 import { ListContext } from "./list.context";
 
 interface Props {
@@ -27,6 +27,7 @@ export const ListPod: React.FC<Props> = (props) => {
     <>
       <Search onSearch={handleSearch} />
       <List members={members} onSelect={onSelect} currentOrg={organization} />
+      <NavigationButton />
     </>
   );
 };

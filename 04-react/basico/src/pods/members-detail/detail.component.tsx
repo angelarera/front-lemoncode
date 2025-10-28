@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { routes } from "@/router";
 import { MemberDetail } from "./detail.vm";
 import {
@@ -20,8 +20,6 @@ interface Props {
 
 export const Detail: React.FC<Props> = React.memo((props) => {
   const { member } = props;
-  const location = useLocation();
-  const lastOrg = (location.state as any)?.org as string | undefined;
 
   return (
     <Box
@@ -98,7 +96,6 @@ export const Detail: React.FC<Props> = React.memo((props) => {
       <Button
         component={Link}
         to={routes.root}
-        state={{ org: lastOrg }}
         startIcon={<ArrowBack />}
         variant="outlined"
         sx={{

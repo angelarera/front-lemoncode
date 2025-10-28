@@ -5,7 +5,12 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { ListPage, DetailScene } from "@/scenes";
+import {
+  MembersListPage,
+  MembersDetailScene,
+  CharactersListPage,
+  CharactersDetailScene,
+} from "@/scenes";
 import { appRoutes } from "./routes";
 import { AppLayout } from "@/layouts";
 
@@ -18,8 +23,19 @@ export const AppRouter: React.FC = () => {
           element={
             <AppLayout>
               <Routes>
-                <Route path={appRoutes.root} element={<ListPage />} />
-                <Route path={appRoutes.detail} element={<DetailScene />} />
+                <Route path={appRoutes.root} element={<MembersListPage />} />
+                <Route
+                  path={appRoutes.memberDetail}
+                  element={<MembersDetailScene />}
+                />
+                <Route
+                  path={appRoutes.rickAndMorty}
+                  element={<CharactersListPage />}
+                />
+                <Route
+                  path={appRoutes.characterDetail}
+                  element={<CharactersDetailScene />}
+                />
               </Routes>
             </AppLayout>
           }

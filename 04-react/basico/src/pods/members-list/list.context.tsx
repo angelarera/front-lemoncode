@@ -10,7 +10,7 @@ export const ListContext = React.createContext<ListContextModel>({
   setOrganization: () => {},
 });
 
-export const ListProvider: React.FC<React.PropsWithChildren> = ({
+export const MembersListProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [organization, setOrganization] = React.useState("lemoncode");
