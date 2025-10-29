@@ -1,4 +1,12 @@
+import { CssBaseline } from "@mui/material";
 import React from "react";
-import { MemberTable } from "./member-table";
+import { AppRouter } from "./router";
 
-export const App: React.FC = () => <MemberTable />;
+export const App: React.FC = () => {
+  return (
+    <>
+      <CssBaseline />
+      <AppRouter />
+    </>
+  );
+};
