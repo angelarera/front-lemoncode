@@ -1,7 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { getPictures } from "./api/api";
-import { PictureInfo, mapPicturesToVM, AnimalsList } from "../common";
+import {
+  PictureInfo,
+  mapPicturesToVM,
+  AnimalsList,
+  NavigationButton,
+} from "@/pods/common";
 
 export const DogsListPod: React.FC = () => {
   const [pictures, setPictures] = React.useState<PictureInfo[]>([]);
@@ -20,11 +25,13 @@ export const DogsListPod: React.FC = () => {
           width: "100%",
           padding: 2,
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
         <AnimalsList pictures={pictures} />
+        <NavigationButton />
       </Box>
     </>
   );
