@@ -2,11 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 
 interface Props {
-  children: React.ReactNode;
   index: number;
 }
 
-export const CardTransition: React.FC<Props> = ({ children, index }) => {
+export const CardTransition: React.FC<React.PropsWithChildren<Props>> = ({
+  children,
+  index,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8, rotateY: 90 }}

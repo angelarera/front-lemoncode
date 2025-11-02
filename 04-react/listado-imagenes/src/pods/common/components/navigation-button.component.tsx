@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Box } from "@mui/material";
-import { appRoutes } from "@/router/routes";
+import { appRoutes } from "@/core/router/routes";
 
 export const NavigationButton: React.FC = () => {
   const location = useLocation();

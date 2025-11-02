@@ -2,22 +2,22 @@ import { PictureInfo } from "@/pods/common/api";
 
 export const mockedPictures: PictureInfo[] = [
   {
-    id: "1",
+    id: "5",
     picUrl: "/img/dogs/cool-dog-1.webp",
     title: "Cool dog A",
   },
   {
-    id: "2",
+    id: "6",
     picUrl: "/img/dogs/cool-dog-2.webp",
     title: "Cool dog B",
   },
   {
-    id: "3",
+    id: "7",
     picUrl: "/img/dogs/cool-dog-3.webp",
     title: "Cool dog C",
   },
   {
-    id: "4",
+    id: "8",
     picUrl: "/img/dogs/cool-dog-4.webp",
     title: "Cool dog D",
   },

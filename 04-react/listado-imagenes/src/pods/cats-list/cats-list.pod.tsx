@@ -1,19 +1,14 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { getPictures } from "./api/api";
-import {
-  PictureInfo,
-  mapPicturesToVM,
-  AnimalsList,
-  NavigationButton,
-} from "@/pods/common";
+import { mapPicturesToVM, AnimalsList, NavigationButton } from "@/pods/common";
+import { useAnimalList } from "../common/hooks";
 
 export const CatsListPod: React.FC = () => {
-  const [pictures, setPictures] = React.useState<PictureInfo[]>([]);
-
-  React.useEffect(() => {
-    getPictures().then(mapPicturesToVM).then(setPictures);
-  }, []);
+  const { pictures } = useAnimalList({
+    fetchPictures: getPictures,
+    mapToVM: mapPicturesToVM,
+  });
 
   return (
     <>

@@ -17,10 +17,11 @@ export const AnimalsList: React.FC<Props> = (props) => {
         component="h1"
         sx={{
           fontWeight: "bold",
+          textAlign: "center",
           marginBottom: 5,
         }}
       >
-        Who do you wanna adopt?
+        Select the images you want to buy
       </Typography>
       <CardsContainer>
         {pictures.map((picture, index) => (

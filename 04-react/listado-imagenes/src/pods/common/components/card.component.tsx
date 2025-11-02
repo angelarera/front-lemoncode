@@ -9,12 +9,25 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { PictureInfo } from "../animal-list.vm";
+import { CartContext } from "@/core/context";
 
 interface Props {
   picture: PictureInfo;
 }
 
 export const AnimalCard: React.FC<Props> = ({ picture }) => {
+  const { selectedIds, addToCart, removeFromCart } =
+    React.useContext(CartContext);
+  const isSelected = selectedIds.includes(picture.id);
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      addToCart(picture.id);
+    } else {
+      removeFromCart(picture.id);
+    }
+  };
+
   return (
     <Card
       sx={{
@@ -54,12 +67,12 @@ export const AnimalCard: React.FC<Props> = ({ picture }) => {
             }}
             control={
               <Checkbox
-                checked={picture.selected}
-                onChange={() => {}}
+                checked={isSelected}
+                onChange={handleCheckboxChange}
                 color="primary"
               />
             }
-            label="Adopt"
+            label="Buy"
           />
         </Box>
       </CardContent>
