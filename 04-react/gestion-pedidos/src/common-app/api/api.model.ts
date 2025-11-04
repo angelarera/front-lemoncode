@@ -1,6 +1,7 @@
 export interface OrderLine {
   id: string;
   article: string;
+  amount: number;
   validated: boolean;
 }
 

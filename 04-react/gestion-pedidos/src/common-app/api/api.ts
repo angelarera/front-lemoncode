@@ -13,16 +13,19 @@ export const mockedOrders: Order[] = [
       {
         id: "1-1",
         article: "Reactivos maquinaria",
+        amount: 2345,
         validated: true,
       },
       {
         id: "1-2",
         article: "Recambios impresión",
+        amount: 135,
         validated: false,
       },
       {
         id: "1-3",
         article: "Soportes plataforma",
+        amount: 54,
         validated: false,
       },
     ],
@@ -39,10 +42,21 @@ export const mockedOrders: Order[] = [
       {
         id: "2-1",
         article: "Microprocesadores i7",
+        amount: 1200,
         validated: true,
       },
-      { id: "2-2", article: "Memorias RAM 16GB", validated: true },
-      { id: "2-3", article: "Discos SSD 1TB", validated: true },
+      {
+        id: "2-2",
+        article: "Memorias RAM 16GB",
+        amount: 450,
+        validated: true,
+      },
+      {
+        id: "2-3",
+        article: "Discos SSD 1TB",
+        amount: 220,
+        validated: true,
+      },
     ],
   },
   {
@@ -57,19 +71,27 @@ export const mockedOrders: Order[] = [
       {
         id: "3-1",
         article: "Tornillería especial",
+        amount: 890,
         validated: true,
       },
       {
         id: "3-2",
         article: "Rodamientos axiales",
+        amount: 1250,
         validated: false,
       },
       {
         id: "3-3",
         article: "Sensores temperatura",
+        amount: 780,
         validated: true,
       },
-      { id: "3-4", article: "Cables shielded", validated: false },
+      {
+        id: "3-4",
+        article: "Cables shielded",
+        amount: 500,
+        validated: false,
+      },
     ],
   },
 ];
