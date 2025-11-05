@@ -7,7 +7,7 @@ interface Props {
   onSendOrder: () => void;
 }
 
-export const OrderHeader: React.FC<Props> = (props) => {
+export const OrderHeader: React.FC<Props> = React.memo((props) => {
   const { order, onSendOrder } = props;
   const canSend = order.validatedPercentage === 100;
 
@@ -81,4 +81,4 @@ export const OrderHeader: React.FC<Props> = (props) => {
       </Box>
     </Paper>
   );
-};
+});

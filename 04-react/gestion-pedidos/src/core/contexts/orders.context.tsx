@@ -36,3 +36,13 @@ export const OrdersProvider: React.FC<React.PropsWithChildren> = ({
     </OrdersContext.Provider>
   );
 };
+
+export const useOrdersContext = () => {
+  const context = React.useContext(OrdersContext);
+
+  if (context === undefined) {
+    throw new Error("useOrdersContext must be used within an OrdersProvider");
+  }
+
+  return context;
+};
