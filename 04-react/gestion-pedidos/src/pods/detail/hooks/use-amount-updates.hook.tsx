@@ -1,10 +1,11 @@
+import React from "react";
+import { OrdersContext } from "@/core/contexts";
 import { Order } from "../detail.vm";
 
-export const useAmountUpdates = (
-  order: Order,
-  setOrder: (order: Order) => void
-) => {
-  const updateAmount = (lineId: string, amount: number) => {
+export const useAmountUpdates = () => {
+  const { updateOrder } = React.useContext(OrdersContext);
+
+  const updateAmount = (order: Order, lineId: string, amount: number) => {
     const updatedLines = order.lines.map((line) =>
       line.id === lineId ? { ...line, amount } : line
     );
@@ -14,11 +15,13 @@ export const useAmountUpdates = (
       0
     );
 
-    setOrder({
+    const updatedOrder = {
       ...order,
       lines: updatedLines,
       totalAmount: newTotalAmount,
-    });
+    };
+
+    updateOrder(order.id, updatedOrder);
   };
 
   return { updateAmount };

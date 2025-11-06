@@ -1,10 +1,12 @@
+import React from "react";
 import { Order } from "../detail.vm";
+import { OrdersContext } from "@/core/contexts";
 
-export const useValidation = (
-  order: Order,
-  setOrder: (order: Order) => void
-) => {
+export const useValidation = () => {
+  const { updateOrder } = React.useContext(OrdersContext);
+
   const applyValidation = (
+    order: Order,
     selectedLines: string[],
     validationMode: "validate" | "invalidate",
     onComplete?: () => void
@@ -20,13 +22,18 @@ export const useValidation = (
       (validatedCount / updatedLines.length) * 100
     );
 
-    setOrder({
+    // Ensure the status type for Typescript
+    const newStatus: "pending" | "validated" | "sent" =
+      validatedPercentage === 100 ? "validated" : "pending";
+
+    const updatedOrder = {
       ...order,
       lines: updatedLines,
       validatedPercentage,
-      status: validatedPercentage === 100 ? "validated" : "pending",
-    });
+      status: newStatus,
+    };
 
+    updateOrder(order.id, updatedOrder);
     onComplete?.();
   };
 

@@ -12,16 +12,26 @@ import { OrderDetail } from "./detail.component";
 export const DetailPod: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { order, setOrder, validationMode, setValidationMode } =
+  const { order, validationMode, setValidationMode, updateOrder } =
     useOrderDetail(id);
   const { selectedLines, toggleLine, toggleAll, setSelectedLines } =
     useLineSelection(order);
-  const { updateAmount } = useAmountUpdates(order, setOrder);
-  const { applyValidation } = useValidation(order, setOrder);
-  const { sendOrder } = useOrderActions(order, setOrder);
+  const { updateAmount } = useAmountUpdates();
+  const { applyValidation } = useValidation();
+  const { sendOrder } = useOrderActions();
 
   const handleApplyValidation = () => {
-    applyValidation(selectedLines, validationMode, () => setSelectedLines([]));
+    applyValidation(order, selectedLines, validationMode, () =>
+      setSelectedLines([])
+    );
+  };
+
+  const handleUpdateAmount = (lineId: string, amount: number) => {
+    updateAmount(order, lineId, amount);
+  };
+
+  const handleSendOrder = () => {
+    sendOrder(order);
   };
 
   if (!order) return <div>Cargando pedido...</div>;
@@ -33,10 +43,10 @@ export const DetailPod: React.FC = () => {
       validationMode={validationMode}
       onToggleLine={toggleLine}
       onToggleAll={toggleAll}
-      onUpdateAmount={updateAmount}
+      onUpdateAmount={handleUpdateAmount}
       onSetValidationMode={setValidationMode}
       onApplyValidation={handleApplyValidation}
-      onSendOrder={sendOrder}
+      onSendOrder={handleSendOrder}
     />
   );
 };
