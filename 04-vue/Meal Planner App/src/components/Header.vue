@@ -1,1 +1,5 @@
-<template>Let's create a Meal Planner App</template>
+<template>
+  <header>
+    <p>My Header</p>
+  </header>
+</template>
