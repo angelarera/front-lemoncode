@@ -27,13 +27,19 @@ export const useMealPlanStore = defineStore(
       isModalOpen.value = true
 
       if (predefinedMeal) {
+        const favouritesStore = useFavouriteStore()
+        const isFavourite = favouritesStore.isFavouriteMeal(
+          predefinedMeal.name,
+          mealType as 'breakfast' | 'lunch' | 'dinner',
+        )
+
         editingMeal.value = {
           id: '',
           name: predefinedMeal.name,
           emoji: predefinedMeal.emoji || '',
-          day: '',
-          type: mealType as 'breakfast' | 'lunch' | 'dinner',
-          isFavourite: false,
+          day: day || '',
+          type: (mealType as 'breakfast' | 'lunch' | 'dinner') || '',
+          isFavourite: isFavourite,
         } as Meal
       }
     }
@@ -58,10 +64,13 @@ export const useMealPlanStore = defineStore(
         loading.value = true
         error.value = null
 
+        const favouritesStore = useFavouriteStore()
+        const isFavourite = favouritesStore.isFavouriteMeal(mealInsert.name, mealInsert.type)
+
         const newMeal: Meal = {
           ...mealInsert,
           id: crypto.randomUUID(),
-          isFavourite: false,
+          isFavourite: isFavourite,
         }
 
         meals.value.push(newMeal)
@@ -137,6 +146,14 @@ export const useMealPlanStore = defineStore(
       }
     }
 
+    const syncFavouriteStatus = (name: string, type: string, isFavourite: boolean) => {
+      meals.value.forEach((meal) => {
+        if (meal.name === name && meal.type === type) {
+          meal.isFavourite = isFavourite
+        }
+      })
+    }
+
     // Clear week
     const clearWeek = async () => {
       try {
@@ -178,6 +195,7 @@ export const useMealPlanStore = defineStore(
       updateMeal,
       toggleFavourite,
       updateMealFavouriteStatus,
+      syncFavouriteStatus,
       clearWeek,
       getMealsByDay,
       getMealById,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue'
+import { reactive, watch, onMounted } from 'vue'
 import { useMealPlanStore, useFavouriteStore } from '@/stores'
 import { mealTypes } from '@/types'
 import { daysOfWeek } from '@/utils/constants'
@@ -30,35 +30,52 @@ const favouritesStore = useFavouriteStore()
 const form = reactive({
   name: '',
   emoji: '',
-  day: props.defaultDay || '',
-  type: (props.defaultMealType as 'breakfast' | 'lunch' | 'dinner') || '',
+  day: '',
+  type: '' as 'breakfast' | 'lunch' | 'dinner',
   isFavourite: false,
 })
 
-watch(
-  () => props.meal,
-  (newMeal) => {
-    if (newMeal) {
-      form.name = newMeal.name
-      form.emoji = newMeal.emoji || ''
-      form.day = newMeal.day
-      form.type = newMeal.type
-      form.isFavourite = newMeal.isFavourite
-    } else {
-      form.name = ''
-      form.emoji = ''
-      form.day = props.defaultDay || ''
-      form.type = (props.defaultMealType as 'breakfast' | 'lunch' | 'dinner') || ''
-      form.isFavourite = false
-    }
-  },
-  { immediate: true },
-)
+onMounted(() => {
+  initializeForm()
+})
+
+const initializeForm = () => {
+  if (props.meal) {
+    form.name = props.meal.name
+    form.emoji = props.meal.emoji || ''
+    form.day = props.meal.day
+    form.type = props.meal.type
+    form.isFavourite = props.meal.isFavourite
+  } else if (mealPlanStore.editingMeal && !mealPlanStore.editingMeal.id) {
+    form.name = mealPlanStore.editingMeal.name
+    form.emoji = mealPlanStore.editingMeal.emoji || ''
+    form.day = mealPlanStore.selectedDay || props.defaultDay || ''
+    form.type =
+      mealPlanStore.editingMeal.type ||
+      (props.defaultMealType as 'breakfast' | 'lunch' | 'dinner') ||
+      ''
+
+    const isFromFavourite = favouritesStore.isFavouriteMeal(
+      mealPlanStore.editingMeal.name,
+      mealPlanStore.editingMeal.type,
+    )
+    form.isFavourite = isFromFavourite
+  } else {
+    form.name = ''
+    form.emoji = ''
+    form.day = props.defaultDay || ''
+    form.type = (props.defaultMealType as 'breakfast' | 'lunch' | 'dinner') || ''
+    form.isFavourite = false
+  }
+}
 
 const handleSubmitMeal = async () => {
-  if (!form.name || !form.day || !form.type) return
+  if (!form.name || !form.day || !form.type) {
+    console.error('Faltan campos requeridos:', form)
+    return
+  }
 
-  if (props.meal) {
+  if (props.meal && props.meal.id) {
     await mealPlanStore.updateMeal(props.meal.id, {
       name: form.name,
       emoji: form.emoji,
@@ -67,24 +84,10 @@ const handleSubmitMeal = async () => {
     })
 
     if (form.isFavourite !== props.meal.isFavourite) {
-      if (form.isFavourite) {
-        favouritesStore.addFavouriteMeal({
-          name: form.name,
-          emoji: form.emoji,
-          type: form.type,
-        })
-        mealPlanStore.updateMealFavouriteStatus(props.meal.id, true)
-      } else {
-        const favourite = favouritesStore
-          .getFavouriteMeals()
-          .find((fav) => fav.name === props.meal.name && fav.type === props.meal.type)
-        if (favourite) {
-          favouritesStore.deleteFavouriteMeal(favourite.id)
-        }
-        mealPlanStore.updateMealFavouriteStatus(props.meal.id, false)
-      }
+      await mealPlanStore.toggleFavourite(props.meal.id)
     }
   } else {
+    console.log('Añadiendo nueva comida:', form)
     const newMeal = await mealPlanStore.addMeal({
       name: form.name,
       emoji: form.emoji,
@@ -92,13 +95,15 @@ const handleSubmitMeal = async () => {
       type: form.type,
     })
 
-    if (form.isFavourite && newMeal) {
-      favouritesStore.addFavouriteMeal({
-        name: form.name,
-        emoji: form.emoji,
-        type: form.type,
-      })
-      mealPlanStore.updateMealFavouriteStatus(newMeal.id, true)
+    if (newMeal) {
+      if (form.isFavourite) {
+        const isAlreadyFavourite = favouritesStore.isFavouriteMeal(form.name, form.type)
+        if (!isAlreadyFavourite) {
+          await mealPlanStore.toggleFavourite(newMeal.id)
+        } else {
+          mealPlanStore.updateMealFavouriteStatus(newMeal.id, true)
+        }
+      }
     }
   }
 
@@ -107,7 +112,7 @@ const handleSubmitMeal = async () => {
 }
 
 const handleDeleteMeal = async () => {
-  if (props.meal) {
+  if (props.meal && props.meal.id) {
     await mealPlanStore.deleteMeal(props.meal.id)
     emit('close')
   }
@@ -215,7 +220,7 @@ const handleDeleteMeal = async () => {
               type="submit"
               class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
             >
-              {{ meal ? 'Update' : 'Add' }} Meal
+              {{ meal && meal.id ? 'Update' : 'Add' }} Meal
             </button>
           </div>
         </div>

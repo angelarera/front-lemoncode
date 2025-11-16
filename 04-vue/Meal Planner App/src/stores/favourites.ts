@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { MealType } from '@/types'
+import { useMealPlanStore } from './meal-plan'
 
 export type FavouriteMeal = {
   id: string
@@ -31,7 +32,12 @@ export const useFavouriteStore = defineStore(
     const deleteFavouriteMeal = (id: string) => {
       const index = favouriteMeals.value.findIndex((meal) => meal.id === id)
       if (index !== -1) {
-        favouriteMeals.value.splice(index, 1)
+        const deletedMeal = favouriteMeals.value[index]
+        if (deletedMeal) {
+          favouriteMeals.value.splice(index, 1)
+          const mealPlanStore = useMealPlanStore()
+          mealPlanStore.syncFavouriteStatus(deletedMeal.name, deletedMeal.type, false)
+        }
       }
     }
 
