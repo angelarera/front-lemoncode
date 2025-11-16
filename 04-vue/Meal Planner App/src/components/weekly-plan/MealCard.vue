@@ -30,15 +30,15 @@ const cardColour = computed(() => {
 
 <template>
   <div
-    class="meal-card rounded-lg p-3 flex items-center justify-between transition-all duration-200"
+    class="meal-card rounded-lg p-3 flex items-center justify-between xl:flex-col xl:items-start xl:flex-1"
     :class="cardColour"
   >
-    <div class="meal-info flex items-center gap-3">
+    <div class="meal-info flex items-center gap-3 xl:mb-4">
       <span v-if="meal.emoji" class="emoji text-lg">{{ meal.emoji }}</span>
       <span class="meal-name font-medium text-gray-800">{{ meal.name }}</span>
     </div>
 
-    <div class="meal-actions flex items-center gap-1">
+    <div class="meal-actions flex items-center gap-1 xl:self-end">
       <IconHeart :filled="meal.isFavourite" @toggle="$emit('toggle-favourite')" class="p-1" />
       <button
         @click="$emit('edit')"
