@@ -9,11 +9,13 @@ import { IconHeart, IconDelete } from '@/components/icons'
 interface Props {
   meal?: any
   defaultDay?: string
+  defaultMealType?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   meal: null,
   defaultDay: '',
+  defaultMealType: '',
 })
 
 const emit = defineEmits<{
@@ -28,7 +30,7 @@ const form = reactive({
   name: '',
   emoji: '',
   day: props.defaultDay || '',
-  type: '' as 'breakfast' | 'lunch' | 'dinner' | '',
+  type: (props.defaultMealType as 'breakfast' | 'lunch' | 'dinner') || '',
   isFavourite: false,
 })
 
@@ -45,7 +47,7 @@ watch(
       form.name = ''
       form.emoji = ''
       form.day = props.defaultDay || ''
-      form.type = ''
+      form.type = (props.defaultMealType as 'breakfast' | 'lunch' | 'dinner') || ''
       form.isFavourite = false
     }
   },
@@ -170,10 +172,7 @@ const handleDeleteMeal = async () => {
 
         <div class="flex justify-between items-center pt-4">
           <div class="flex items-center gap-2">
-            <IconHeart
-              :filled="form.isFavourite"
-              @toggle="form.isFavourite = !form.isFavourite"
-            />
+            <IconHeart :filled="form.isFavourite" @toggle="form.isFavourite = !form.isFavourite" />
             <button
               v-if="meal"
               type="button"

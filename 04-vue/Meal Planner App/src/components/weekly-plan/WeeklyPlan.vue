@@ -4,6 +4,7 @@ import DayColumn from './DayColumn.vue'
 import { daysOfWeek } from '@/utils/constants'
 
 const emit = defineEmits<{
+  'add-meal': [{ day: string; mealType: string }]
   'edit-meal': [meal: any]
   'delete-meal': [id: string]
   'toggle-favourite': [id: string]
@@ -26,6 +27,10 @@ const handleDeleteMeal = (id: string) => {
 const handleToggleFavourite = (id: string) => {
   mealPlanStore.toggleFavourite(id)
 }
+
+const handleAddMeal = ({ day, mealType }: { day: string; mealType: string }) => {
+  emit('add-meal', { day, mealType })
+}
 </script>
 
 <template>
@@ -36,6 +41,7 @@ const handleToggleFavourite = (id: string) => {
         :key="day"
         :day="day"
         :meals="getMealsByDay(day)"
+        @add-meal="handleAddMeal"
         @edit-meal="handleEditMeal"
         @delete-meal="handleDeleteMeal"
         @toggle-favourite="handleToggleFavourite"

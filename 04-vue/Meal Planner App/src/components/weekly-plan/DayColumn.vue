@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MealCard from './MealCard.vue'
 import { mealTypes } from '@/types'
+import { IconAdd } from '@/components/icons'
 
 interface Props {
   day: string
@@ -13,6 +14,7 @@ defineEmits<{
   'edit-meal': [meal: any]
   'delete-meal': [id: string]
   'toggle-favourite': [id: string]
+  'add-meal': [{ day: string; mealType: string }]
 }>()
 </script>
 
@@ -38,12 +40,14 @@ defineEmits<{
             @toggle-favourite="$emit('toggle-favourite', meal.id)"
           />
 
-          <div
+          <button
             v-if="meals.filter((m) => m.type === mealType.value).length === 0"
-            class="phantom-card min-h-[56px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-3 text-center"
+            @click="$emit('add-meal', { day, mealType: mealType.value })"
+            class="phantom-card min-h-[56px] w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
           >
+            <IconAdd class="w-4 h-4 text-gray-400" />
             <span class="text-gray-400 text-sm">{{ mealType.label }}</span>
-          </div>
+          </button>
         </div>
       </div>
     </div>

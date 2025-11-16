@@ -7,6 +7,10 @@ import MealModal from '@/components/forms/MealModal.vue'
 
 const mealPlanStore = useMealPlanStore()
 
+const handleAddMeal = ({ day, mealType }: { day: string; mealType: string }) => {
+  mealPlanStore.openAddModal(day, mealType)
+}
+
 const handleEditMeal = (meal: any) => {
   mealPlanStore.openEditModal(meal)
 }
@@ -19,7 +23,7 @@ const handleEditMeal = (meal: any) => {
         <section class="weekly-calendar lg:w-3/5 xl:w-4/5">
           <h2 class="text-1xl font-bold mb-3 text-gray-800">This Week's Plan</h2>
           <div>
-            <WeeklyPlan @edit-meal="handleEditMeal" />
+            <WeeklyPlan @edit-meal="handleEditMeal" @add-meal="handleAddMeal" />
           </div>
         </section>
 
@@ -36,6 +40,7 @@ const handleEditMeal = (meal: any) => {
       v-if="mealPlanStore.isModalOpen"
       :meal="mealPlanStore.editingMeal"
       :default-day="mealPlanStore.selectedDay"
+      :default-meal-type="mealPlanStore.selectedMealType"
       @close="mealPlanStore.closeModal"
       @save="mealPlanStore.closeModal"
     />

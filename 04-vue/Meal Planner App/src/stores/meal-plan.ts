@@ -10,10 +10,12 @@ export const useMealPlanStore = defineStore('meal-plan', () => {
   const isModalOpen = ref(false)
   const editingMeal = ref<Meal | null>(null)
   const selectedDay = ref<string>('')
+  const selectedMealType = ref<string>('')
 
   // Modal
-  const openAddModal = (day?: string) => {
+  const openAddModal = (day?: string, mealType?: string) => {
     selectedDay.value = day || ''
+    selectedMealType.value = mealType || ''
     editingMeal.value = null
     isModalOpen.value = true
   }
@@ -21,6 +23,7 @@ export const useMealPlanStore = defineStore('meal-plan', () => {
   const openEditModal = (meal: Meal) => {
     editingMeal.value = meal
     selectedDay.value = meal.day
+    selectedMealType.value = meal.type
     isModalOpen.value = true
   }
 
@@ -28,6 +31,7 @@ export const useMealPlanStore = defineStore('meal-plan', () => {
     isModalOpen.value = false
     editingMeal.value = null
     selectedDay.value = ''
+    selectedMealType.value = ''
   }
 
   // Add meal
@@ -123,6 +127,7 @@ export const useMealPlanStore = defineStore('meal-plan', () => {
     isModalOpen,
     editingMeal,
     selectedDay,
+    selectedMealType,
     openAddModal,
     openEditModal,
     closeModal,
