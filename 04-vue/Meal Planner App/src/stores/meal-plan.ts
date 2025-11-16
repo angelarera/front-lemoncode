@@ -2,142 +2,148 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Meal, MealInsert } from '@/types'
 
-export const useMealPlanStore = defineStore('meal-plan', () => {
-  const meals = ref<Meal[]>([])
-  const loading = ref(false)
-  const error = ref<string | null>(null)
+export const useMealPlanStore = defineStore(
+  'meal-plan',
+  () => {
+    const meals = ref<Meal[]>([])
+    const loading = ref(false)
+    const error = ref<string | null>(null)
 
-  const isModalOpen = ref(false)
-  const editingMeal = ref<Meal | null>(null)
-  const selectedDay = ref<string>('')
-  const selectedMealType = ref<string>('')
+    const isModalOpen = ref(false)
+    const editingMeal = ref<Meal | null>(null)
+    const selectedDay = ref<string>('')
+    const selectedMealType = ref<string>('')
 
-  // Modal
-  const openAddModal = (day?: string, mealType?: string) => {
-    selectedDay.value = day || ''
-    selectedMealType.value = mealType || ''
-    editingMeal.value = null
-    isModalOpen.value = true
-  }
+    // Modal
+    const openAddModal = (day?: string, mealType?: string) => {
+      selectedDay.value = day || ''
+      selectedMealType.value = mealType || ''
+      editingMeal.value = null
+      isModalOpen.value = true
+    }
 
-  const openEditModal = (meal: Meal) => {
-    editingMeal.value = meal
-    selectedDay.value = meal.day
-    selectedMealType.value = meal.type
-    isModalOpen.value = true
-  }
+    const openEditModal = (meal: Meal) => {
+      editingMeal.value = meal
+      selectedDay.value = meal.day
+      selectedMealType.value = meal.type
+      isModalOpen.value = true
+    }
 
-  const closeModal = () => {
-    isModalOpen.value = false
-    editingMeal.value = null
-    selectedDay.value = ''
-    selectedMealType.value = ''
-  }
+    const closeModal = () => {
+      isModalOpen.value = false
+      editingMeal.value = null
+      selectedDay.value = ''
+      selectedMealType.value = ''
+    }
 
-  // Add meal
-  const addMeal = async (mealInsert: MealInsert) => {
-    try {
-      loading.value = true
-      error.value = null
+    // Add meal
+    const addMeal = async (mealInsert: MealInsert) => {
+      try {
+        loading.value = true
+        error.value = null
 
-      const newMeal: Meal = {
-        ...mealInsert,
-        id: crypto.randomUUID(),
-        isFavourite: false,
+        const newMeal: Meal = {
+          ...mealInsert,
+          id: crypto.randomUUID(),
+          isFavourite: false,
+        }
+
+        meals.value.push(newMeal)
+        return newMeal
+      } catch (e) {
+        error.value = e instanceof Error ? e.message : 'Failed to add meal'
+        return null
+      } finally {
+        loading.value = false
       }
-
-      meals.value.push(newMeal)
-      return newMeal
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to add meal'
-      return null
-    } finally {
-      loading.value = false
     }
-  }
 
-  // Delete meal
-  const deleteMeal = async (id: string) => {
-    try {
-      error.value = null
-      meals.value = meals.value.filter((meal) => meal.id !== id)
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to delete meal'
-    }
-  }
-
-  // Update meal
-  const updateMeal = async (id: string, updates: Partial<Omit<MealInsert, 'id'>>) => {
-    try {
-      error.value = null
-      const index = meals.value.findIndex((meal) => meal.id === id)
-      if (index !== -1) {
-        meals.value[index] = {
-          ...meals.value[index],
-          ...updates,
-        } as Meal
+    // Delete meal
+    const deleteMeal = async (id: string) => {
+      try {
+        error.value = null
+        meals.value = meals.value.filter((meal) => meal.id !== id)
+      } catch (e) {
+        error.value = e instanceof Error ? e.message : 'Failed to delete meal'
       }
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to update meal'
     }
-  }
 
-  // Favourites
-  const toggleFavourite = async (id: string) => {
-    try {
-      error.value = null
-      const meal = meals.value.find((meal) => meal.id === id)
-      if (meal) {
-        meal.isFavourite = !meal.isFavourite
+    // Update meal
+    const updateMeal = async (id: string, updates: Partial<Omit<MealInsert, 'id'>>) => {
+      try {
+        error.value = null
+        const index = meals.value.findIndex((meal) => meal.id === id)
+        if (index !== -1) {
+          meals.value[index] = {
+            ...meals.value[index],
+            ...updates,
+          } as Meal
+        }
+      } catch (e) {
+        error.value = e instanceof Error ? e.message : 'Failed to update meal'
       }
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to toggle favourite'
     }
-  }
 
-  // Clear week
-  const clearWeek = async () => {
-    try {
-      error.value = null
-      meals.value = []
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to clear week'
+    // Favourites
+    const toggleFavourite = async (id: string) => {
+      try {
+        error.value = null
+        const meal = meals.value.find((meal) => meal.id === id)
+        if (meal) {
+          meal.isFavourite = !meal.isFavourite
+        }
+      } catch (e) {
+        error.value = e instanceof Error ? e.message : 'Failed to toggle favourite'
+      }
     }
-  }
 
-  // Get meals by days
-  const getMealsByDay = (day: string) => {
-    return meals.value.filter((meal) => meal.day === day)
-  }
+    // Clear week
+    const clearWeek = async () => {
+      try {
+        error.value = null
+        meals.value = []
+      } catch (e) {
+        error.value = e instanceof Error ? e.message : 'Failed to clear week'
+      }
+    }
 
-  // Get meal by id
-  const getMealById = (id: string) => {
-    return meals.value.find((meal) => meal.id === id)
-  }
+    // Get meals by days
+    const getMealsByDay = (day: string) => {
+      return meals.value.filter((meal) => meal.day === day)
+    }
 
-  // Get favourite meals
-  const getFavouriteMeals = () => {
-    return meals.value.filter((meal) => meal.isFavourite)
-  }
+    // Get meal by id
+    const getMealById = (id: string) => {
+      return meals.value.find((meal) => meal.id === id)
+    }
 
-  return {
-    meals,
-    loading,
-    error,
-    isModalOpen,
-    editingMeal,
-    selectedDay,
-    selectedMealType,
-    openAddModal,
-    openEditModal,
-    closeModal,
-    addMeal,
-    deleteMeal,
-    updateMeal,
-    toggleFavourite,
-    clearWeek,
-    getMealsByDay,
-    getMealById,
-    getFavouriteMeals,
-  }
-})
+    // Get favourite meals
+    const getFavouriteMeals = () => {
+      return meals.value.filter((meal) => meal.isFavourite)
+    }
+
+    return {
+      meals,
+      loading,
+      error,
+      isModalOpen,
+      editingMeal,
+      selectedDay,
+      selectedMealType,
+      openAddModal,
+      openEditModal,
+      closeModal,
+      addMeal,
+      deleteMeal,
+      updateMeal,
+      toggleFavourite,
+      clearWeek,
+      getMealsByDay,
+      getMealById,
+      getFavouriteMeals,
+    }
+  },
+  {
+    persist: true,
+  },
+)
