@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Meal, MealInsert } from '@/types'
+import { useFavouriteStore } from './favourites'
 
 export const useMealPlanStore = defineStore(
   'meal-plan',
@@ -15,11 +16,26 @@ export const useMealPlanStore = defineStore(
     const selectedMealType = ref<string>('')
 
     // Modal
-    const openAddModal = (day?: string, mealType?: string) => {
+    const openAddModal = (
+      day?: string,
+      mealType?: string,
+      predefinedMeal?: { name: string; emoji?: string },
+    ) => {
       selectedDay.value = day || ''
       selectedMealType.value = mealType || ''
       editingMeal.value = null
       isModalOpen.value = true
+
+      if (predefinedMeal) {
+        editingMeal.value = {
+          id: '',
+          name: predefinedMeal.name,
+          emoji: predefinedMeal.emoji || '',
+          day: '',
+          type: mealType as 'breakfast' | 'lunch' | 'dinner',
+          isFavourite: false,
+        } as Meal
+      }
     }
 
     const openEditModal = (meal: Meal) => {
@@ -90,10 +106,34 @@ export const useMealPlanStore = defineStore(
         error.value = null
         const meal = meals.value.find((meal) => meal.id === id)
         if (meal) {
-          meal.isFavourite = !meal.isFavourite
+          const favouritesStore = useFavouriteStore()
+
+          if (!meal.isFavourite) {
+            favouritesStore.addFavouriteMeal({
+              name: meal.name,
+              emoji: meal.emoji,
+              type: meal.type,
+            })
+            meal.isFavourite = true
+          } else {
+            const favourite = favouritesStore
+              .getFavouriteMeals()
+              .find((fav) => fav.name === meal.name && fav.type === meal.type)
+            if (favourite) {
+              favouritesStore.deleteFavouriteMeal(favourite.id)
+            }
+            meal.isFavourite = false
+          }
         }
       } catch (e) {
         error.value = e instanceof Error ? e.message : 'Failed to toggle favourite'
+      }
+    }
+
+    const updateMealFavouriteStatus = (id: string, isFavourite: boolean) => {
+      const meal = meals.value.find((meal) => meal.id === id)
+      if (meal) {
+        meal.isFavourite = isFavourite
       }
     }
 
@@ -137,6 +177,7 @@ export const useMealPlanStore = defineStore(
       deleteMeal,
       updateMeal,
       toggleFavourite,
+      updateMealFavouriteStatus,
       clearWeek,
       getMealsByDay,
       getMealById,

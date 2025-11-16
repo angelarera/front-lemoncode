@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
-import { useMealPlanStore } from '@/stores/meal-plan'
+import { useMealPlanStore, useFavouriteStore } from '@/stores'
 import { mealTypes } from '@/types'
 import { daysOfWeek } from '@/utils/constants'
 import { IconHeart, IconDelete } from '@/components/icons'
@@ -24,6 +24,7 @@ const emit = defineEmits<{
 }>()
 
 const mealPlanStore = useMealPlanStore()
+const favouritesStore = useFavouriteStore()
 
 // Form
 const form = reactive({
@@ -66,20 +67,38 @@ const handleSubmitMeal = async () => {
     })
 
     if (form.isFavourite !== props.meal.isFavourite) {
-      await mealPlanStore.toggleFavourite(props.meal.id)
+      if (form.isFavourite) {
+        favouritesStore.addFavouriteMeal({
+          name: form.name,
+          emoji: form.emoji,
+          type: form.type,
+        })
+        mealPlanStore.updateMealFavouriteStatus(props.meal.id, true)
+      } else {
+        const favourite = favouritesStore
+          .getFavouriteMeals()
+          .find((fav) => fav.name === props.meal.name && fav.type === props.meal.type)
+        if (favourite) {
+          favouritesStore.deleteFavouriteMeal(favourite.id)
+        }
+        mealPlanStore.updateMealFavouriteStatus(props.meal.id, false)
+      }
     }
   } else {
-    await mealPlanStore.addMeal({
+    const newMeal = await mealPlanStore.addMeal({
       name: form.name,
       emoji: form.emoji,
       day: form.day,
       type: form.type,
     })
-    if (form.isFavourite) {
-      const lastMeal = mealPlanStore.meals[mealPlanStore.meals.length - 1]
-      if (lastMeal) {
-        await mealPlanStore.toggleFavourite(lastMeal.id)
-      }
+
+    if (form.isFavourite && newMeal) {
+      favouritesStore.addFavouriteMeal({
+        name: form.name,
+        emoji: form.emoji,
+        type: form.type,
+      })
+      mealPlanStore.updateMealFavouriteStatus(newMeal.id, true)
     }
   }
 

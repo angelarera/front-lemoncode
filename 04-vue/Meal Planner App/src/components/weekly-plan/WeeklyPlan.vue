@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMealPlanStore } from '@/stores/meal-plan'
+import { useMealPlanStore } from '@/stores'
 import DayColumn from './DayColumn.vue'
 import { daysOfWeek } from '@/utils/constants'
 

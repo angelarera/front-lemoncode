@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { IconHeart, IconEdit, IconDelete } from '@/components/icons'
+import { useMealPlanStore, useFavouriteStore } from '@/stores'
 
 interface Props {
   meal: any
 }
 
 const props = defineProps<Props>()
+const mealPlanStore = useMealPlanStore()
+const favouritesStore = useFavouriteStore()
 
 defineEmits<{
   edit: []
@@ -26,6 +29,10 @@ const cardColour = computed(() => {
       return 'bg-gray-200'
   }
 })
+
+const handleToggleFavourite = () => {
+  mealPlanStore.toggleFavourite(props.meal.id)
+}
 </script>
 
 <template>
@@ -33,13 +40,13 @@ const cardColour = computed(() => {
     class="meal-card rounded-lg p-3 flex items-center justify-between xl:flex-col xl:items-start xl:flex-1"
     :class="cardColour"
   >
-    <div class="meal-info flex items-center gap-3 xl:mb-4">
+    <div class="meal-info flex items-center gap-2 xl:mb-4">
       <span v-if="meal.emoji" class="emoji text-lg">{{ meal.emoji }}</span>
       <span class="meal-name font-medium text-gray-800">{{ meal.name }}</span>
     </div>
 
     <div class="meal-actions flex items-center gap-1 xl:self-end">
-      <IconHeart :filled="meal.isFavourite" @toggle="$emit('toggle-favourite')" class="p-1" />
+      <IconHeart :filled="meal.isFavourite" @toggle="handleToggleFavourite" class="p-1" />
       <button
         @click="$emit('edit')"
         class="p-1 text-gray-500 hover:text-blue-600 transition-colors"
