@@ -1,12 +1,26 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { useMealPlanStore } from './meal-plan'
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+export const useCounterStore = defineStore(
+  'counter',
+  () => {
+    const mealPlanStore = useMealPlanStore()
 
-  return { count, doubleCount, increment }
-})
+    const plannedMealsCount = computed(() => {
+      return mealPlanStore.meals.length
+    })
+
+    const favouriteMealsCount = computed(() => {
+      return mealPlanStore.getFavouriteMeals().length
+    })
+
+    return {
+      plannedMealsCount,
+      favouriteMealsCount,
+    }
+  },
+  {
+    persist: true,
+  },
+)

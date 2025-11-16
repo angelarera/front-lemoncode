@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { useMealPlanStore } from '@/stores/meal-plan'
-import WeeklyPlan from '@/components/weekly-plan/WeeklyPlan.vue'
-import FavouritesList from '@/components/favourites/FavouritesList.vue'
-import MealModal from '@/components/forms/MealModal.vue'
+import { WeeklyPlan, FavouritesList, MealModal, WeeklySummary } from '@/components'
 
 const mealPlanStore = useMealPlanStore()
 
@@ -28,9 +26,18 @@ const handleEditMeal = (meal: any) => {
         </section>
 
         <aside class="favourite-meals lg:w-2/5 xl:w-1/5">
-          <h2 class="text-1xl font-bold mb-3 text-gray-800">Favourite Meals</h2>
-          <div class="bg-white rounded-lg shadow p-6">
-            <FavouritesList />
+          <div class="favourite-meals mb-5">
+            <h2 class="text-1xl font-bold mb-3 text-gray-800">Favourite Meals</h2>
+            <div class="bg-white rounded-lg shadow p-6">
+              <FavouritesList />
+            </div>
+          </div>
+
+          <div class="weekly-summary-section">
+            <h2 class="text-1xl font-bold mb-3 text-gray-800">Weekly Summary</h2>
+            <div class="bg-white rounded-lg shadow p-6">
+              <WeeklySummary />
+            </div>
           </div>
         </aside>
       </div>
