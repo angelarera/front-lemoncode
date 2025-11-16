@@ -1,4 +1,5 @@
 export { default as WeeklyPlan } from './weekly-plan/WeeklyPlan.vue'
 export { default as FavouritesList } from './favourites/FavouritesList.vue'
 export { default as MealModal } from './forms/MealModal.vue'
-export { default as WeeklySummary } from './summary/WeeklySummary.vue'
+export { default as WeeklySummary } from './WeeklySummary.vue'
+export { default as Navigation } from './Navigation.vue'
