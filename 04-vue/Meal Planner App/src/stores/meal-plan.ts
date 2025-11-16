@@ -7,6 +7,29 @@ export const useMealPlanStore = defineStore('meal-plan', () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
+  const isModalOpen = ref(false)
+  const editingMeal = ref<Meal | null>(null)
+  const selectedDay = ref<string>('')
+
+  // Modal
+  const openAddModal = (day?: string) => {
+    selectedDay.value = day || ''
+    editingMeal.value = null
+    isModalOpen.value = true
+  }
+
+  const openEditModal = (meal: Meal) => {
+    editingMeal.value = meal
+    selectedDay.value = meal.day
+    isModalOpen.value = true
+  }
+
+  const closeModal = () => {
+    isModalOpen.value = false
+    editingMeal.value = null
+    selectedDay.value = ''
+  }
+
   // Add meal
   const addMeal = async (mealInsert: MealInsert) => {
     try {
@@ -97,6 +120,12 @@ export const useMealPlanStore = defineStore('meal-plan', () => {
     meals,
     loading,
     error,
+    isModalOpen,
+    editingMeal,
+    selectedDay,
+    openAddModal,
+    openEditModal,
+    closeModal,
     addMeal,
     deleteMeal,
     updateMeal,

@@ -1,0 +1,51 @@
+<script setup lang="ts">
+import MealCard from './MealCard.vue'
+import { mealTypes } from '@/types'
+
+interface Props {
+  day: string
+  meals: any[]
+}
+
+defineProps<Props>()
+
+defineEmits<{
+  'edit-meal': [meal: any]
+  'delete-meal': [id: string]
+  'toggle-favourite': [id: string]
+}>()
+</script>
+
+<template>
+  <div class="day-column bg-white rounded-lg border border-gray-200 p-4">
+    <div class="day-header mb-4 pb-3 border-b border-gray-100">
+      <h3 class="font-semibold text-lg text-gray-800">{{ day }}</h3>
+    </div>
+
+    <div class="meals-container space-y-4">
+      <div v-for="mealType in mealTypes" :key="mealType.value" class="meal-type-section">
+        <h4 class="text-sm font-medium text-gray-600 mb-2">
+          {{ mealType.label }}
+        </h4>
+
+        <div class="meals-list space-y-2">
+          <MealCard
+            v-for="meal in meals.filter((m) => m.type === mealType.value)"
+            :key="meal.id"
+            :meal="meal"
+            @edit="$emit('edit-meal', meal)"
+            @delete="$emit('delete-meal', meal.id)"
+            @toggle-favourite="$emit('toggle-favourite', meal.id)"
+          />
+
+          <div
+            v-if="meals.filter((m) => m.type === mealType.value).length === 0"
+            class="phantom-card min-h-[56px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-3 text-center"
+          >
+            <span class="text-gray-400 text-sm">{{ mealType.label }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

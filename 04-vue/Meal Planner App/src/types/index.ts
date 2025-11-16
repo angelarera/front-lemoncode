@@ -13,3 +13,11 @@ export type MealInsert = {
   type: 'breakfast' | 'lunch' | 'dinner'
   emoji?: string
 }
+
+export const mealTypes = [
+  { value: 'breakfast' as const, label: 'Breakfast' },
+  { value: 'lunch' as const, label: 'Lunch' },
+  { value: 'dinner' as const, label: 'Dinner' },
+]
+
+export type MealType = (typeof mealTypes)[number]['value']
