@@ -1,5 +1,6 @@
 import * as viewModel from './house.vm';
 import classes from './house.module.css';
+import Link from 'next/link';
 import { ReviewItem } from './components';
 
 interface Props {
@@ -11,6 +12,12 @@ export const House: React.FC<Props> = (props) => {
 
   return (
     <div className={classes.root}>
+      {/* Back btn */}
+      <Link href="/" className={classes.backButton}>
+        ← Volver al listado
+      </Link>
+
+      {/* Title + img */}
       <div className={classes.title}>
         <h2 className={classes.name}>{house.name}</h2>
         <span className={classes.price}>{house.priceFormatted}</span>
