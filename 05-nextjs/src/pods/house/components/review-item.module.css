@@ -1,0 +1,22 @@
+.reviewItem {
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+  border: 3px solid var(--colour-grey-light);
+  border-radius: var(--border-radius-lg);
+}
+
+.reviewHeader {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ratingNumber {
+  margin-right: var(--spacing-sm);
+}
+
+.reviewDate {
+  margin-bottom: var(--spacing-sm);
+  color: var(--colour-grey-dark);
+}

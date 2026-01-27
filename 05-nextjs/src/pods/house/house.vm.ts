@@ -1,4 +1,3 @@
-// house/vm/house.vm.ts
 export interface House {
   id: string;
   name: string;
@@ -10,6 +9,15 @@ export interface House {
   imageUrl: string;
   amenities: string[];
   ratingAverage: number;
+  reviews: Review[];
+}
+
+export interface Review {
+  id: string;
+  author: string;
+  date: string;
+  comment: string;
+  rating: number;
 }
 
 export const createEmptyHouse = (): House => ({
@@ -23,4 +31,5 @@ export const createEmptyHouse = (): House => ({
   imageUrl: '',
   amenities: [],
   ratingAverage: 0,
+  reviews: [],
 });

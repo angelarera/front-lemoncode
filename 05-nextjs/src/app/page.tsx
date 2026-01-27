@@ -1,16 +1,21 @@
+import { getHouseList } from '#pods/house-list/api/house-list.api';
+import { HouseList } from '#pods/house-list/house-list.component';
+import { mapHouseListFromApiToVm } from '#pods/house-list/house-list.mappers';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Casa rural Málaga - Home',
+  title: 'Casa rural - Home',
 };
 
-const RootPage = () => {
+const RootPage = async () => {
+  const apiHouseList = await getHouseList();
+  const houseList = mapHouseListFromApiToVm(apiHouseList);
+
   return (
-    <>
-      <h2>Hello from Nextjs</h2>
-      <Link href="/houses">Navigate to house list</Link>
-    </>
+    <div className="container">
+      <h1 className="list-title">Casas rurales disponibles</h1>
+      <HouseList houseList={houseList} />
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { House } from './house-list.vm';
 import { HouseItem } from './components';
-import classes from './car-list.module.css';
+import classes from './house-list.module.css';
 
 interface Props {
   houseList: House[];
@@ -13,8 +13,8 @@ export const HouseList: React.FC<Props> = (props) => {
   return (
     <ul className={classes.root}>
       {houseList.map((house) => (
-        <li key={house.id}>
-          <CarItem car={house} />
+        <li className={classes.li} key={house.id}>
+          <HouseItem house={house} />
         </li>
       ))}
     </ul>

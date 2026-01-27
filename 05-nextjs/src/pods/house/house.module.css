@@ -1,79 +1,88 @@
-.root {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto auto;
-  grid-template-areas:
-    'name'
-    'image'
-    'features'
-    'book';
-  column-gap: 2rem;
-  row-gap: 2rem;
-  align-items: center;
-}
-
-@media (min-width: 900px) {
-  .root {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:
-      'name .'
-      'image features'
-      'book book';
-  }
-}
-
 .name {
-  grid-area: name;
-  justify-self: center;
-  font-weight: 400;
-  font-size: 3rem;
-  line-height: 1.167;
-  letter-spacing: 0em;
-  margin: 0;
-}
-
-@media (min-width: 900px) {
-  .name {
-    justify-self: stretch;
-  }
-}
-
-.book {
-  grid-area: book;
-  align-self: center;
-  justify-self: center;
-  outline: 0;
-  border: 0;
-  margin: 0;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.75;
-  letter-spacing: 0.02857em;
+  font-size: var(--font-size-xxlarge);
+  font-weight: 800;
+  line-height: 115%;
   text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 4px;
-  color: #fff;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
-.primary {
-  background-color: #1976d2;
+.price,
+.reviewsSection .sectionTitle,
+.rating {
+  font-size: var(--font-size-xlarge);
+  font-weight: 600;
 }
 
-.secondary {
-  background-color: #9c27b0;
+.imageContainer {
+  width: 100%;
+  height: 50vw;
+  max-width: 100%;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.title,
+.mainInfo,
+.imageContainer,
+.section {
+  margin-bottom: var(--spacing-lg);
 }
 
 .image {
-  grid-area: image;
-  position: relative;
-  justify-self: stretch;
-  align-self: stretch;
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-fit: cover;
+  object-position: center center;
 }
 
-.features {
-  grid-area: features;
-  list-style: none;
+.sectionTitle {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+}
+
+.detailItem,
+.amenityItem {
+  margin-bottom: var(--spacing-xs);
+}
+
+.detailLabel {
+  font-weight: 500;
+}
+
+.reviewsSection {
+  padding-top: var(--spacing-lg);
+  border-top: 3px solid var(--colour-grey-light);
+}
+
+.sectionTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mainInfo {
+    margin-bottom: var(--spacing-xxl);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xxl);
+    align-items: stretch;
+  }
+
+  .imageContainer {
+    height: 100%;
+  }
+
+  .section:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .reviewsSection {
+    padding-top: var(--spacing-xxl);
+  }
 }

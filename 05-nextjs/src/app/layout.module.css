@@ -1,0 +1,9 @@
+.header {
+  margin-bottom: var(--spacing-xl);
+  padding-top: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xxl);
+  background-color: var(--colour-grey-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
