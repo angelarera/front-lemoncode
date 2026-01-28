@@ -2,6 +2,7 @@ import React from 'react';
 import './globals.css';
 import classes from './layout.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Props {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ const RootLayout = (props: Props) => {
       <body>
         <header className={classes.header}>
           <Link href="/">
-            <img src="/home-logo.png" alt="logo" width="125" height="90" />
+            <Image src="/home-logo.png" alt="logo" width="125" height="90" />
           </Link>
         </header>
         <main>{children}</main>

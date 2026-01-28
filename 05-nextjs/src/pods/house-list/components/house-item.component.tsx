@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { House } from '../house-list.vm';
 import classes from './house-item.module.css';
+import Image from 'next/image';
 
 interface Props {
   house: House;
@@ -14,12 +15,20 @@ export const HouseItem: React.FC<Props> = (props) => {
   return (
     <Link href={routeConstants.house(house.id)} className={classes.root}>
       <figure className={classes.imageContainer}>
+        <Image
+          src={house.image}
+          alt={house.name}
+          fill
+          className={classes.image}
+          sizes="(max-width: 700px) 100vw, (max-width: 1050px) 50vw, 33vw"
+        />
+        {/* 
         <img
           className={classes.image}
           src={house.image}
           alt={house.name}
           loading="lazy"
-        />
+        />*/}
       </figure>
       <div className={classes.titleRating}>
         <h2 className={classes.title}>{house.name}</h2>
