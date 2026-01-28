@@ -20,15 +20,8 @@ export const HouseItem: React.FC<Props> = (props) => {
           alt={house.name}
           fill
           className={classes.image}
-          sizes="(max-width: 700px) 100vw, (max-width: 1050px) 50vw, 33vw"
+          sizes="(max-width: 814px) 100vw, (max-width: 1200px) 550px, 360px"
         />
-        {/* 
-        <img
-          className={classes.image}
-          src={house.image}
-          alt={house.name}
-          loading="lazy"
-        />*/}
       </figure>
       <div className={classes.titleRating}>
         <h2 className={classes.title}>{house.name}</h2>

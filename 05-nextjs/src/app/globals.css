@@ -60,6 +60,7 @@ main {
 .container {
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-xxl);
+  width: 100%;
   max-width: 1200px;
 }
 

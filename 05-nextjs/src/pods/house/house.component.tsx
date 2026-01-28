@@ -2,6 +2,7 @@ import * as viewModel from './house.vm';
 import classes from './house.module.css';
 import Link from 'next/link';
 import { ReviewItem } from './components';
+import Image from 'next/image';
 
 interface Props {
   house: viewModel.House;
@@ -25,11 +26,12 @@ export const House: React.FC<Props> = (props) => {
       <div className={classes.mainInfo}>
         <div className={classes.imageColumn}>
           <figure className={classes.imageContainer}>
-            <img
+            <Image
               src={house.imageUrl}
               alt={house.name}
+              fill
               className={classes.image}
-              loading="lazy"
+              sizes="(max-width: 992px) 100vw, 700px"
             />
           </figure>
         </div>
