@@ -1,0 +1,17 @@
+.search {
+  margin-bottom: var(--spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInput {
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--colour-grey-dark);
+  border-radius: var(--border-radius-lg);
+}
+
+.searchInput:focus {
+  border: 2px solid var(--colour-accent);
+}

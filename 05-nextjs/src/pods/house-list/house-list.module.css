@@ -1,10 +1,30 @@
-.root {
+.houseList {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  grid-template-columns: repeat(1, 1fr);
   column-gap: var(--spacing-xl);
   row-gap: var(--spacing-xxl);
+}
+
+.noResultsText {
+  margin-bottom: var(--spacing-sm);
+}
+
+.resetButton {
+  padding: var(--spacing-md);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--colour-white);
+  background-color: var(--colour-primary);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.resetButton:hover {
+  background-color: var(--colour-accent);
 }
 
 .li {
@@ -18,4 +38,32 @@
 
 .li:hover * {
   color: var(--colour-accent);
+}
+
+@media (min-width: 768px) {
+  .filters {
+    display: flex;
+    justify-content: stretch;
+    gap: var(--spacing-xl);
+  }
+
+  .noResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .noResultsText {
+    text-align: center;
+  }
+
+  .houseList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .houseList {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

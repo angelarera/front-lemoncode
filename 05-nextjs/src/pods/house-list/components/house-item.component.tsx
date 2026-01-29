@@ -13,14 +13,14 @@ export const HouseItem: React.FC<Props> = (props) => {
   const { house } = props;
 
   return (
-    <Link href={routeConstants.house(house.id)} className={classes.root}>
+    <Link href={routeConstants.house(house.id)}>
       <figure className={classes.imageContainer}>
         <Image
           src={house.image}
           alt={house.name}
           fill
           className={classes.image}
-          sizes="(max-width: 814px) 100vw, (max-width: 1200px) 550px, 360px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 550px, 360px"
         />
       </figure>
       <div className={classes.titleRating}>
