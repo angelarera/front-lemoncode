@@ -21,8 +21,9 @@ export const LocationFilter: React.FC<Props> = ({
 
   return (
     <form className={classes.filter}>
-      <label>Busca por localización</label>
+      <label htmlFor="location-filter">Busca por localización</label>
       <select
+        id="location-filter"
         value={value}
         onChange={handleChange}
         className={classes.filterSelect}

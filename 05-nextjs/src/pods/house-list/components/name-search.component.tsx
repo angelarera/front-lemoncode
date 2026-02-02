@@ -18,8 +18,9 @@ export const NameSearch: React.FC<Props> = ({
 
   return (
     <form className={classes.search}>
-      <label>Busca por nombre de casa</label>
+      <label htmlFor="name-search">Busca por nombre de casa</label>
       <input
+        id="name-search"
         type="text"
         value={value}
         onChange={handleChange}
