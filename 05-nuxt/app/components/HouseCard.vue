@@ -47,7 +47,7 @@ const averageRating = computed(() => {
   </li>
 </template>
 
-<style>
+<style scoped>
 .house * {
   transition: 0.3s ease-in-out;
 }

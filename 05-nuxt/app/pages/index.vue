@@ -15,7 +15,7 @@ useSeoMeta({
   </ul>
 </template>
 
-<style>
+<style scoped>
 .list-title {
   margin: var(--spacing-lg);
   font-size: var(--font-size-xxlarge);
