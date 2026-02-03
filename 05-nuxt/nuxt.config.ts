@@ -1,11 +1,20 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   css: ["~/assets/main.css"],
+  modules: ["@nuxt/image"],
+  image: {
+    provider: "ipx",
+    screens: {
+      xs: 375,
+      sm: 640,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+    },
+  },
   runtimeConfig: {
     public: {
-      // Public runtime config: exposed to the client bundle.
       siteName: process.env.NUXT_PUBLIC_SITE_NAME ?? "Casa rural",
     },
   },
