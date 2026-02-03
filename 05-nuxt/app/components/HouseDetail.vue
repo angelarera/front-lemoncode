@@ -98,8 +98,7 @@ const { house } = defineProps<Props>();
 }
 
 .house-detail__price,
-.house-detail__reviews-section .house-detail__section-title,
-.house-detail__rating {
+.house-detail__reviews-section .house-detail__section-title {
   font-size: var(--font-size-xlarge);
   font-weight: 600;
 }
@@ -141,16 +140,6 @@ const { house } = defineProps<Props>();
   font-weight: 500;
 }
 
-.house-detail__reviews-section {
-  padding-top: var(--spacing-lg);
-  border-top: 3px solid var(--colour-grey-light);
-}
-
-.house-detail__section-top {
-  display: flex;
-  justify-content: space-between;
-}
-
 @media (min-width: 992px) {
   .house-detail__title {
     display: flex;
@@ -172,10 +161,6 @@ const { house } = defineProps<Props>();
 
   .house-detail__section:last-of-type {
     margin-bottom: 0;
-  }
-
-  .house-detail__reviews-section {
-    padding-top: var(--spacing-xxl);
   }
 }
 </style>

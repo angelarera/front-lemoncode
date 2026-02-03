@@ -41,7 +41,7 @@ const averageRating = computed(() => {
       </div>
       <div class="house__details">
         <p>{{ house.city }}, {{ house.country }}</p>
-        <p>{{ house.price }} €</p>
+        <p>{{ house.price }} € / noche</p>
       </div>
     </NuxtLink>
   </li>
