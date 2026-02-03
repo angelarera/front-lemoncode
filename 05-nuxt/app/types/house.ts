@@ -22,4 +22,5 @@ export type House = {
   image: string;
   amenities: string[];
   reviews: Review[];
+  ratingAverage?: number;
 };

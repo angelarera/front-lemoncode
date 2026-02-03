@@ -53,22 +53,13 @@ li {
 
 main {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 .container {
-  padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-xxl);
+  margin: 0 auto var(--spacing-xxl);
   width: 100%;
   max-width: 1200px;
-}
-
-.list-title {
-  margin-bottom: var(--spacing-lg);
-  font-size: var(--font-size-xxlarge);
-  font-weight: 800;
-  line-height: 115%;
-  text-transform: uppercase;
-  text-align: center;
 }
