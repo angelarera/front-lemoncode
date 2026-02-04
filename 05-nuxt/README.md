@@ -17,3 +17,5 @@ bun run dev
 ## Desafíos implementados
 
 Optimización de imágenes con Nuxt Image
+
+Filtrado por nombre y ubicación
