@@ -26,8 +26,8 @@ const averageRating = computed(() => {
         <NuxtImg
           :src="house.image"
           :alt="`Foto de ${house.name}`"
-          width="400"
-          height="300"
+          width="700"
+          height="470"
           :sizes="'(max-width: 768px) 100vw, (max-width: 1200px) 550px, 360px'"
           fit="cover"
           loading="lazy"
@@ -66,9 +66,8 @@ const averageRating = computed(() => {
 }
 
 .house__image {
-  width: auto;
-  max-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center center;
 }
