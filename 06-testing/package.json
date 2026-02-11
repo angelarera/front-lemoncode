@@ -13,7 +13,8 @@
     "test": "vitest -c ./config/test/config.ts",
     "clean": "rimraf dist",
     "test:e2e": "npm start -- start:e2e",
-    "start:e2e": "cypress open"
+    "start:e2e": "cypress open",
+    "cy:run": "cypress run"
   },
   "imports": {
     "#*": "./src/*"
