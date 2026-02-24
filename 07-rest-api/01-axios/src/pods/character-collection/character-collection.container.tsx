@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CharacterCollectionComponent } from './character-collection.component';
 import { useCharacterCollection } from './character-collection.hook';
+import { CharacterSearch } from './components';
 import { linkRoutes } from '#core/router/routes';
 
 export const CharacterCollectionContainer: React.FunctionComponent = () => {
@@ -17,10 +18,17 @@ export const CharacterCollectionContainer: React.FunctionComponent = () => {
     navigate(linkRoutes.characterDetail(id.toString()));
   };
 
+  const handleSearch = (name: string) => {
+    loadCharacterCollection(name);
+  };
+
   return (
-    <CharacterCollectionComponent
-      characterCollection={characterCollection}
-      onSelect={handleSelect}
-    />
+    <>
+      <CharacterSearch onSearch={handleSearch} />
+      <CharacterCollectionComponent
+        characterCollection={characterCollection}
+        onSelect={handleSelect}
+      />
+    </>
   );
 };

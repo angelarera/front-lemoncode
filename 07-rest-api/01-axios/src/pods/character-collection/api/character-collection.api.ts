@@ -6,6 +6,9 @@ const API_URL = 'https://rickandmortyapi.com/api';
 export const getCharacterCollection = async (
   name?: string
 ): Promise<CharacterEntityApi[]> => {
-  const { data } = await axios.get(`${API_URL}/character`);
+  const { data } = await axios.get(`${API_URL}/character`, {
+    params: name ? { name } : {},
+  });
+
   return data.results;
 };
