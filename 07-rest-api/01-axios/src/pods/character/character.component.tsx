@@ -13,7 +13,6 @@ import {
 import { ArrowBack } from '@mui/icons-material';
 import { linkRoutes } from '#core/router';
 import { CharacterDetail } from './character.vm';
-import * as classes from './character.styles';
 
 interface Props {
   character: CharacterDetail;
@@ -23,26 +22,52 @@ export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
   const { character } = props;
 
   return (
-    <Box className={classes.root}>
-      <Card className={classes.card}>
+    <Box
+      sx={{
+        backgroundColor: '#272b33',
+        minHeight: '100dvh',
+        width: '100%',
+        padding: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Card
+        sx={{
+          boxShadow: 2,
+          borderRadius: 2,
+          backgroundColor: '#454a52ff',
+          color: 'white',
+          maxWidth: 400,
+          width: '100%',
+        }}
+      >
         <CardMedia
           component="img"
           image={character.image}
           alt={character.name}
-          className={classes.media}
+          sx={{
+            height: 300,
+            objectFit: 'cover',
+          }}
         />
 
-        <CardContent className={classes.content}>
+        <CardContent sx={{ padding: 3 }}>
           <Typography
             variant="h5"
             component="h1"
             gutterBottom
-            className={classes.title}
+            sx={{
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}
           >
             {character.name}
           </Typography>
 
-          <Box className={classes.chipContainer}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
             <Chip
               label={character.status}
               size="small"
@@ -60,26 +85,28 @@ export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
                       color: 'white',
                       fontWeight: 'bold',
                     }
-                  : { fontWeight: 'bold' }
+                  : {
+                      fontWeight: 'bold',
+                    }
               }
             />
           </Box>
 
-          <Divider className={classes.divider} />
+          <Divider sx={{ my: 2, backgroundColor: '#666' }} />
 
-          <Box className={classes.infoContainer}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Box>
-              <Typography className={classes.infoLabel}>Species</Typography>
-              <Typography className={classes.infoValue}>
-                {character.species}
+              <Typography variant="subtitle2" sx={{ color: '#b0b0b0' }}>
+                Species
               </Typography>
+              <Typography variant="body1">{character.species}</Typography>
             </Box>
 
             <Box>
-              <Typography className={classes.infoLabel}>Location</Typography>
-              <Typography className={classes.infoValue}>
-                {character.location}
+              <Typography variant="subtitle2" sx={{ color: '#b0b0b0' }}>
+                Location
               </Typography>
+              <Typography variant="body1">{character.location}</Typography>
             </Box>
           </Box>
         </CardContent>
@@ -90,7 +117,20 @@ export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
         to={linkRoutes.characterCollection}
         startIcon={<ArrowBack />}
         variant="contained"
-        className={classes.button}
+        sx={{
+          mt: 3,
+          fontSize: '0.9rem',
+          fontWeight: 'bold',
+          backgroundColor: '#3a3f47',
+          color: 'white',
+          border: '1px solid #555',
+          padding: '8px 20px',
+          transition: '0.3s ease-in-out',
+          '&:hover': {
+            backgroundColor: '#4a4f57',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+          },
+        }}
       >
         Volver al listado de personajes
       </Button>

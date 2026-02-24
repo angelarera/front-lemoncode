@@ -8,7 +8,6 @@ import {
   Box,
 } from '@mui/material';
 import { CharacterEntityVm } from '../character-collection.vm';
-import * as classes from './character-card.styles';
 
 interface Props {
   character: CharacterEntityVm;
@@ -23,18 +22,53 @@ export const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
   };
 
   return (
-    <Card className={classes.root} onClick={handleClick}>
+    <Card
+      onClick={handleClick}
+      sx={{
+        display: 'flex',
+        backgroundColor: '#454a52ff',
+        color: 'white',
+        boxShadow: 2,
+        transition: '0.2s ease-in-out',
+        cursor: 'pointer',
+        '&:hover': {
+          boxShadow: 6,
+          transform: 'translateY(-2px)',
+        },
+        width: 350,
+        height: 140,
+      }}
+    >
       <CardMedia
         component="img"
-        className={classes.media}
+        sx={{ width: 140, height: 140 }}
         image={character.image}
         alt={character.name}
       />
-      <CardContent className={classes.content}>
-        <Typography variant="h6" component="h3" className={classes.name}>
+
+      <CardContent
+        sx={{
+          flex: 1,
+          padding: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Typography
+          variant="h6"
+          component="h3"
+          sx={{
+            fontWeight: 'bold',
+            fontSize: '1.1rem',
+            lineHeight: '125%',
+            marginBottom: 1,
+          }}
+        >
           {character.name}
         </Typography>
-        <Box className={classes.infoContainer}>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
           <Chip
             label={character.status}
             size="small"
@@ -45,9 +79,21 @@ export const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
                   ? 'error'
                   : 'default'
             }
-            className={classes.chip(character.status)}
+            sx={
+              character.status === 'unknown'
+                ? {
+                    backgroundColor: '#181a1eff',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    width: 'fit-content',
+                  }
+                : {
+                    fontWeight: 'bold',
+                    width: 'fit-content',
+                  }
+            }
           />
-          <Typography className={classes.species}>
+          <Typography variant="body2" sx={{ color: '#e0e0e0' }}>
             {character.species}
           </Typography>
         </Box>

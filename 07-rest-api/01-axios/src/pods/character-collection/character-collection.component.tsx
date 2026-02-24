@@ -4,7 +4,7 @@ import { CharacterCard, CharactersContainer } from './components';
 
 interface Props {
   characterCollection: CharacterEntityVm[];
-  onSelect: (id: number) => void; // Cambiado a number
+  onSelect: (id: number) => void;
 }
 
 export const CharacterCollectionComponent: React.FC<Props> = (props) => {
