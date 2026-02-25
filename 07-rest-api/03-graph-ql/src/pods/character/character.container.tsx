@@ -20,7 +20,7 @@ export const CharacterContainer: React.FunctionComponent = () => {
   }, [id]);
 
   if (!character) {
-    return <div>Cargando...</div>;
+    return <div style={{ color: 'white' }}>Cargando...</div>;
   }
 
   return <CharacterComponent character={character} />;
