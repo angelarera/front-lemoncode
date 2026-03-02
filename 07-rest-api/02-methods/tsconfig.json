@@ -11,10 +11,11 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "baseUrl": "./src/",
+    "baseUrl": ".",
     "paths": {
-      "#*": ["*"]
+      "#*": ["src/*"],
+      "#server/*": ["server/*"]
     }
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "server/src/character-collection.mock-data.ts"]
 }
