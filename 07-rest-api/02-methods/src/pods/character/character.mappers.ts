@@ -9,4 +9,5 @@ export const mapCharacterFromApiToVm = (
   species: character.species,
   image: character.image,
   location: character.origin.name,
+  bestSentence: character.bestSentence || '',
 });

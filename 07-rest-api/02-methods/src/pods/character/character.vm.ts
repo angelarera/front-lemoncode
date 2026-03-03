@@ -4,4 +4,5 @@ export interface CharacterDetail {
   species: string;
   image: string;
   location: string;
+  bestSentence?: string;
 }

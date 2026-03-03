@@ -8,3 +8,18 @@ export const getCharacter = async (id: string): Promise<Character> => {
   }
   return character;
 };
+
+export const updateCharacterBestSentence = async (
+  id: string,
+  bestSentence: string
+): Promise<boolean> => {
+  const index = mockCharacterCollection.findIndex((c) => c.id === Number(id));
+  if (index !== -1) {
+    mockCharacterCollection[index] = {
+      ...mockCharacterCollection[index],
+      bestSentence,
+    };
+    return true;
+  }
+  return false;
+};

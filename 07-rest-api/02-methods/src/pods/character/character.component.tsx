@@ -9,18 +9,26 @@ import {
   Box,
   Divider,
   Button,
+  TextField,
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { linkRoutes } from '#core/router';
 import { CharacterDetail } from './character.vm';
+import { BestSentenceField } from './components/best-sentence-field.component';
 
 interface Props {
   character: CharacterDetail;
+  bestSentence: string;
+  onBestSentenceChange: (value: string) => void;
+  onSaveBestSentence: () => void;
 }
 
-export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
-  const { character } = props;
-
+export const CharacterComponent: React.FunctionComponent<Props> = ({
+  character,
+  bestSentence,
+  onBestSentenceChange,
+  onSaveBestSentence,
+}) => {
   return (
     <Box
       sx={{
@@ -108,9 +116,28 @@ export const CharacterComponent: React.FunctionComponent<Props> = (props) => {
               </Typography>
               <Typography variant="body1">{character.location}</Typography>
             </Box>
+
+            {character.bestSentence && (
+              <Box>
+                <Typography variant="subtitle2" sx={{ color: '#b0b0b0' }}>
+                  Best sentence
+                </Typography>
+                <Typography variant="body1">
+                  {character.bestSentence}
+                </Typography>
+              </Box>
+            )}
           </Box>
         </CardContent>
       </Card>
+
+      <Box sx={{ width: '400px', marginTop: 3, marginBottom: 5 }}>
+        <BestSentenceField
+          value={bestSentence}
+          onChange={onBestSentenceChange}
+          onSave={onSaveBestSentence}
+        />
+      </Box>
 
       <Button
         component={Link}
